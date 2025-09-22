@@ -66,15 +66,15 @@ connection.connect((err) => {
         try {
           const [existingAdmin] = await connection.promise().query(
             'SELECT id FROM usuarios_sistema WHERE username = ?',
-            ['administrador']
+            ['adminvisitas']
           );
           
           if (existingAdmin.length === 0) {
-            const passwordHash = await bcrypt.hash('1pTv2025', 10);
+            const passwordHash = await bcrypt.hash('Drtcvisitas2025!', 10);
             
             await connection.promise().query(
               'INSERT INTO usuarios_sistema (username, password_hash, nombre, rol) VALUES (?, ?, ?, ?)',
-              ['administrador', passwordHash, 'Administrador del Sistema', 'admin']
+              ['adminvisitas', passwordHash, 'Administrador del Sistema', 'admin']
             );
             console.log('Usuario administrador creado con éxito');
           } else {
