@@ -1,7 +1,6 @@
 const mysql = require('mysql2');
 require('dotenv').config();
 
-// Crear pool de conexiones
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -19,7 +18,6 @@ const pool = mysql.createPool({
   }
 });
 
-// Verificar al inicializar
 pool.getConnection((err, connection) => {
   if (err) {
     console.error('❌ Error obteniendo conexión del pool:', err.message);
@@ -29,22 +27,20 @@ pool.getConnection((err, connection) => {
   connection.release();
 });
 
-// Eventos del pool (opcional)
 pool.on('connection', (connection) => {
   console.log('🔌 Nueva conexión en el pool:', connection.threadId);
 });
+
 pool.on('acquire', (connection) => {
   console.log('➡️  Conexión adquirida:', connection.threadId);
 });
+
 pool.on('release', (connection) => {
   console.log('⬅️  Conexión liberada:', connection.threadId);
 });
 
-// Exportar el pool con promesas
 const db = pool.promise();
-module.exports = db;
 
-// Verificación periódica
 const verificarConexion = async () => {
   try {
     await db.execute('SELECT 1');
@@ -54,8 +50,7 @@ const verificarConexion = async () => {
   }
 };
 
-// Cada 5 minutos
 setInterval(verificarConexion, 5 * 60 * 1000);
-
-// Verificar al iniciar
 verificarConexion();
+
+module.exports = db;
