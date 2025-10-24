@@ -40,6 +40,7 @@ app.get('/api/visitas/public/historial', async (req, res) => {
         p.apellido_paterno,
         p.apellido_materno,
         v.area_visita,
+        v.motivo,
         v.fecha_entrada,
         v.fecha_salida
       FROM visitas v

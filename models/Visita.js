@@ -50,7 +50,7 @@ class Visita {
     }
   }
 
-  // Obtener historial de visitas
+  // ✅ CORREGIDO: Obtener historial de visitas (SIN LÍMITE)
   static async getHistorial() {
     try {
       const [results] = await db.execute(`
@@ -58,7 +58,6 @@ class Visita {
         FROM visitas v 
         INNER JOIN personas p ON v.persona_id = p.id 
         ORDER BY v.fecha_entrada DESC
-        LIMIT 100
       `);
       
       return results;
