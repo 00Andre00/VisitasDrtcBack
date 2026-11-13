@@ -1,3 +1,4 @@
+// inicializador de bd para pruebas
 const mysql = require('mysql2');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
